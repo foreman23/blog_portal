@@ -11,3 +11,30 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.headerBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.blogCard {
+  margin: 10px;
+  font-size: smaller;
+  text-decoration: none;
+}
+
+.blogCard:hover {
+  transform: scale(1.0055);
+}
+
+.cardContainer {
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 275px);
+}
+
+.homeContainerMain {
+  margin: 10px;
+  margin-top: 30px;
+}
