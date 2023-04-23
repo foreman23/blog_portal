@@ -39,7 +39,7 @@ export const BlogList = (props) => {
             </Table>
             {displayViewAll && (
                 <span style={{ justifyContent: 'center', display: 'flex' }}>
-                    <Button href='/allposts'>View All</Button>
+                    <Button style={{backgroundColor: '#f2f2f2'}} href='/allposts'>View All</Button>
                 </span>
             )}
 
