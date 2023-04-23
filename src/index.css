@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #E8E8E8 !important;
 }
 
 code {
@@ -37,4 +38,46 @@ code {
 .homeContainerMain {
   margin: 10px;
   margin-top: 30px;
+}
+
+.viewPostIcons {
+  color: #898989;
+  font-size: 38px !important;
+  margin-right: 30px !important;
+}
+
+@media (min-width: 1700px) {
+  .viewPostBlogDiv {
+    display: flex;
+    margin: auto;
+    padding-left: 650px;
+    padding-right: 650px;
+  }
+}
+
+@media (max-width: 1700px) {
+  .viewPostBlogDiv {
+    display: flex;
+    margin: auto;
+    padding-left: 450px;
+    padding-right: 450px;
+  }
+}
+
+@media (max-width: 1500px) {
+  .viewPostBlogDiv {
+    display: flex;
+    margin: auto;
+    padding-left: 350px;
+    padding-right: 350px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .viewPostBlogDiv {
+    display: flex;
+    margin: auto;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
 }

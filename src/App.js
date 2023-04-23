@@ -14,7 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home></Home>}></Route>
           <Route path="/newpost" element={<NewPost></NewPost>}></Route>
-          <Route path="/viewpost" element={<ViewPost></ViewPost>}></Route>
+          <Route path="/viewpost/:postId" element={<ViewPost></ViewPost>}></Route>
         </Routes>
       </div>
     </Router>
