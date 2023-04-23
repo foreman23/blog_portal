@@ -34,6 +34,62 @@ const blogData = [
         date: 'March 24th, 2023',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A iaculis at erat pellentesque.',
     },
+    {
+        id: 5,
+        image: image4,
+        title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        date: 'March 24th, 2023',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A iaculis at erat pellentesque.',
+    },
+    {
+        id: 6,
+        image: image4,
+        title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        date: 'March 24th, 2023',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A iaculis at erat pellentesque.',
+    },
+    {
+        id: 7,
+        image: image4,
+        title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        date: 'March 24th, 2023',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A iaculis at erat pellentesque.',
+    },
+    {
+        id: 8,
+        image: image4,
+        title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        date: 'March 24th, 2023',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A iaculis at erat pellentesque.',
+    },
+    {
+        id: 9,
+        image: image4,
+        title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        date: 'March 24th, 2023',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A iaculis at erat pellentesque.',
+    },
+    {
+        id: 10,
+        image: image4,
+        title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        date: 'March 24th, 2023',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A iaculis at erat pellentesque.',
+    },
+    {
+        id: 11,
+        image: image4,
+        title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        date: 'March 24th, 2023',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A iaculis at erat pellentesque.',
+    },
+    {
+        id: 12,
+        image: image4,
+        title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        date: 'March 24th, 2023',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A iaculis at erat pellentesque.',
+    },
 ];
 
 export default blogData;

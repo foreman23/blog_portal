@@ -10,18 +10,18 @@ const Home = () => {
 
     return (
         <div>
-            <Container className="homeContainerMain">
+            <Container style={{marginTop: '50px'}} className="homeContainerMain">
                 <Row>
                     <Col>
                         <h2 style={{ marginLeft: '10px' }}>Latest Posts</h2>
                         <div className='cardContainer'>
-                            {blogData.map((blog) => (
+                            {blogData.slice(0, 4).map((blog) => (
                                 <BlogCard image={blog.image} keyID={blog.id} title={blog.title} date={blog.date} description={blog.description}></BlogCard>
                             ))}
                         </div>
                     </Col>
                     <Col>
-                        <BlogList></BlogList>
+                        <BlogList viewall={true} amount={8}></BlogList>
                     </Col>
                 </Row>
             </Container>

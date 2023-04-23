@@ -81,3 +81,49 @@ code {
     padding-right: 0px;
   }
 }
+
+.blogListTitle {
+  text-decoration: none;
+  font-weight: 500;
+  color: #383838;
+}
+
+.blogListTitle:hover {
+  color: #898989;
+}
+
+@media (min-width: 1700px) {
+  .allPostsDiv {
+    display: flex;
+    margin: auto;
+    padding-left: 450px;
+    padding-right: 450px;
+  }
+}
+
+@media (max-width: 1700px) {
+  .allPostsDiv {
+    display: flex;
+    margin: auto;
+    padding-left: 250px;
+    padding-right: 250px;
+  }
+}
+
+@media (max-width: 1500px) {
+  .allPostsDiv {
+    display: flex;
+    margin: auto;
+    padding-left: 150px;
+    padding-right: 150px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .allPostsDiv {
+    display: flex;
+    margin: auto;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
