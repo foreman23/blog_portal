@@ -1,10 +1,25 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
+import axios from 'axios';
 import { Button, Search, Icon } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
 
-import blogData from './BlogData';
 
 export const Header = () => {
+
+  // Retrieve blogData from server
+  const [blogData, setBlogData] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:4000/blogs');
+                setBlogData(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchData();
+    }, []);
 
   // Init navigate
   const navigate = useNavigate();
@@ -19,14 +34,14 @@ export const Header = () => {
     const filteredResults = blogData.filter((option) =>
       option.title.toLowerCase().includes(value.toLowerCase())
     )
-    .map((option) => ({ title: option.title, image: option.image, id: option.id }));
+    .map((option) => ({ title: option.title, img: option.img, _id: option._id }));
     setResults(filteredResults);
   }
 
   // Upon search select
   function handleResultSelect(event, { result }) {
     setQuery(result.title);
-    navigate(`/viewpost/${result.id}`)
+    navigate(`/viewpost/${result._id}`)
   }
 
   return (

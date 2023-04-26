@@ -143,3 +143,7 @@ code {
   text-decoration: none;
   color: #383838;
 }
+
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.2) !important;
+}
