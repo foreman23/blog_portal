@@ -28,7 +28,7 @@ const Home = () => {
                         <h2 style={{ marginLeft: '10px' }}>Latest Posts</h2>
                         <div className='cardContainer'>
                             {blogData.slice(0, 4).map((blog) => (
-                                <BlogCard image={blog.img} keyID={blog._id} title={blog.title} date={blog.date} description={blog.description}></BlogCard>
+                                <BlogCard key={blog._id} image={blog.img} keyID={blog._id} title={blog.title} date={blog.date} description={blog.description}></BlogCard>
                             ))}
                         </div>
                     </Col>

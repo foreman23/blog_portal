@@ -71,11 +71,11 @@ export const BlogList = (props) => {
                 </Table.Header>
                 <Table.Body>
                     {blogData.slice(0, renderAmount).map((blog) => (
-                        <Table.Row>
+                        <Table.Row key={blog._id}>
                             <Table.Cell><a className='blogListTitle' href={`/viewpost/${blog._id}`}>{blog.title}</a></Table.Cell>
                             <Table.Cell>{blog.createdAt}</Table.Cell>
                             <Table.Cell>{blog._id}</Table.Cell>
-                            <Table.Cell><Button><Icon name='edit'></Icon></Button></Table.Cell>
+                            <Table.Cell><Button href={`/updatepost/${blog._id}`}><Icon name='edit'></Icon></Button></Table.Cell>
                             <Table.Cell><Button onClick={() => handleShow(blog._id, blog.title)}><Icon name='ban'></Icon></Button></Table.Cell>
 
                             <Modal style={{ marginTop: '200px' }} animation={false} className='modal' show={show} onHide={handleClose}>
@@ -91,7 +91,7 @@ export const BlogList = (props) => {
                                     <Button onClick={handleClose}>
                                         Cancel
                                     </Button>
-                                    <Button color='negative' onClick={() => handleDelete(blogId)}>
+                                    <Button color='red' onClick={() => handleDelete(blogId)}>
                                         Delete
                                     </Button>
                                 </Modal.Footer>

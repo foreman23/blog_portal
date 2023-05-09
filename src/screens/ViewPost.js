@@ -1,8 +1,10 @@
 import { React, useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Col, Row } from 'react-bootstrap';
+import { Container, Col, Row, Modal } from 'react-bootstrap';
 import { Header, Button, Image, Icon, Loader } from 'semantic-ui-react';
+import { EditorState, convertFromRaw } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
 
 const ViewPost = () => {
 
@@ -28,11 +30,20 @@ const ViewPost = () => {
         fetchData();
     }, [postId]);
 
+    // useState for Editor
+    const [editorState, setEditorState] = useState(
+        () => EditorState.createEmpty(),
+    );
+
     // Set loading to false once blogData is populated
     useEffect(() => {
         if (blogData.length !== 0) {
             const response = blogData.find(post => post._id === postId);
             setPost(response);
+            // Set editor state
+            const rawContentState = JSON.parse(response.content);
+            const contentState = convertFromRaw(rawContentState);
+            setEditorState(EditorState.createWithContent(contentState));
             setLoading(false);
             setIndex(blogData.indexOf(response));
         }
@@ -72,6 +83,35 @@ const ViewPost = () => {
         renderPrev = false;
     }
 
+    // DELETE a blog from server
+    function handleDelete() {
+        handleClose()
+        axios.delete(`http://localhost:4000/blogs/${blogData[index]._id}`)
+            .then(response => {
+                console.log(response);
+                navigate(-1);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+
+    // Modal state info
+    const [show, setShow] = useState(false);
+    const [blogId, setBlogId] = useState(null);
+    const [blogTitle, setBlogTitle] = useState(null);
+
+    const handleShow = (id, title) => {
+        setShow(true);
+        setBlogId(id);
+        setBlogTitle(title);
+    };
+
+    const handleClose = () => {
+        setShow(false);
+        setBlogId(null);
+    };
+
     return (
         <div>
             {loading ? (
@@ -83,14 +123,40 @@ const ViewPost = () => {
 
             ) : (
                 <Container fluid>
-                    <Row fluid style={{ display: 'flex', backgroundColor: '#D9D9D9', alignItems: 'center', justifyContent: 'center', textAlign: 'center', paddingBottom: '10px', paddingTop: '10px', marginBottom: '20px' }}>
+                    <Row style={{ display: 'flex', backgroundColor: '#D9D9D9', alignItems: 'center', justifyContent: 'center', textAlign: 'center', paddingBottom: '10px', paddingTop: '10px', marginBottom: '20px' }}>
                         <Col>
-                            <Button href='/' size='medium' style={{ backgroundColor: '#FFFFFF' }}><Icon style={{ margin: 'auto' }} name='home'></Icon></Button><Button size='medium' style={{ backgroundColor: '#FFFFFF' }} onClick={goBack}>Back</Button>
+                            <Button href='/' size='medium' style={{ backgroundColor: '#FFFFFF' }}>
+                                <Icon style={{ margin: 'auto' }} name='home'></Icon>
+                            </Button>
+                            <Button size='medium' style={{ backgroundColor: '#FFFFFF' }} onClick={goBack}>Back</Button>
                         </Col>
                         <Col>
-                            <Button size='medium' style={{ backgroundColor: '#FFFFFF' }}><Icon size='large' style={{ margin: 'auto' }} name='pencil alternate'></Icon></Button><Button size='medium' style={{ backgroundColor: '#FFFFFF' }}><Icon size='large' style={{ margin: 'auto' }} name='trash alternate outline'></Icon></Button>
+                            <Button href={`/updatepost/${postId}`} size='medium' style={{ backgroundColor: '#FFFFFF' }}>
+                                <Icon size='large' style={{ margin: 'auto' }} name='pencil alternate'></Icon>
+                            </Button>
+                            <Button onClick={() => handleShow(blogId, post.title)} size='medium' style={{ backgroundColor: '#FFFFFF' }}>
+                                <Icon size='large' style={{ margin: 'auto' }} name='trash alternate outline'></Icon>
+                            </Button>
                         </Col>
                     </Row>
+                    <Modal style={{ marginTop: '200px' }} animation={false} className='modal' show={show} onHide={handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Confirm delete</Modal.Title>
+                            <Icon style={{ marginLeft: '5px', marginTop: '4px' }} color='red' size='large' name='ban'></Icon>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <p>Are you sure you want to delete post: <b>{post.title}</b> ?</p>
+                            <p>This action cannot be undone.</p>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button onClick={handleClose}>
+                                Cancel
+                            </Button>
+                            <Button color='red' onClick={() => handleDelete()}>
+                                Delete
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
                     <Row style={{ display: 'flex', margin: '20px', justifyContent: 'space-around', textAlign: 'center' }}>
                         <Col>
                             {renderPrev ? (
@@ -107,7 +173,7 @@ const ViewPost = () => {
                         </Col>
                     </Row>
                     <Row style={{ display: 'flex', margin: '20px', justifyContent: 'space-around', textAlign: 'center' }}>
-                        <Col><Button href={`/allposts`} color='primary'>View All Posts</Button></Col>
+                        <Col><Button href={`/allposts`} primary>View All Posts</Button></Col>
                     </Row>
                     <div className='viewPostBlogDiv'>
                         <Container style={{
@@ -129,7 +195,14 @@ const ViewPost = () => {
                                 <Col><Image fluid centered src={post.img}></Image></Col>
                             </Row>
                             <Row>
-                                <Col><p style={{ width: '100%', justifyContent: 'center', display: 'flex', margin: 'auto', marginTop: '15px', fontSize: '20px' }}>{post.content}</p></Col>
+                                <Col>
+                                    <Editor
+                                        toolbarHidden
+                                        editorState={editorState}
+                                        readOnly={true}
+                                        style={{ width: '100%', justifyContent: 'center', display: 'flex', margin: 'auto', marginTop: '15px', fontSize: '20px' }}>
+                                    </Editor>
+                                </Col>
                             </Row>
                         </Container>
                     </div>

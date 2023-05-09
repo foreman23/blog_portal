@@ -18,7 +18,7 @@ const goBack = () => {
     return (
         <div>
             <Container fluid>
-                <Row fluid style={{display: 'flex', backgroundColor: '#D9D9D9', alignItems: 'center', justifyContent: 'center', textAlign: 'center', paddingBottom: '10px', paddingTop: '10px', marginBottom: '20px'}}>
+                <Row style={{display: 'flex', backgroundColor: '#D9D9D9', alignItems: 'center', justifyContent: 'center', textAlign: 'center', paddingBottom: '10px', paddingTop: '10px', marginBottom: '20px'}}>
                     <Col><Button href='/' size='medium' style={{ backgroundColor: '#FFFFFF' }}><Icon style={{ margin: 'auto' }} name='home'></Icon></Button><Button size='medium' style={{backgroundColor: '#FFFFFF'}} onClick={goBack}>Back</Button></Col>
                     <Col></Col>
                 </Row>

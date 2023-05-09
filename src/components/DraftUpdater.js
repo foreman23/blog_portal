@@ -1,35 +1,75 @@
 import { React, useState, useEffect } from 'react';
 import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Editor } from 'react-draft-wysiwyg';
 import { Button, Icon, Input, TextArea, Form, Label, Image } from 'semantic-ui-react';
 import { Container, Col, Row } from 'react-bootstrap';
 
-const DraftEditor = () => {
+const DraftUpdater = () => {
 
-    // Init navigate
-    const navigate = useNavigate();
+    // Get params
+    let { postId } = useParams();
 
-    // Set page name
-    useEffect(() =>
-    {
-        document.title = "Blog Portal - Editor";
-    }, [])
+    // GET blogData from server
+    const [blogData, setBlogData] = useState([]);
+    const [post, setPost] = useState([]);
+    const [index, setIndex] = useState();
+    const [loading, setLoading] = useState(true);
 
     // state variables for form inputs
     const [title, setTitle] = useState(null);
     const [description, setDescription] = useState(null);
+    const [id, setId] = useState(null);
 
-    // Return to last page
-    const goBack = () => {
-        navigate(-1);
-    }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`http://localhost:4000/blogs`);
+                setBlogData(response.data);
+
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchData();
+    }, [postId]);
 
     // useState for Editor
     const [editorState, setEditorState] = useState(
         () => EditorState.createEmpty(),
     );
+
+    // Set loading to false once blogData is populated
+    useEffect(() => {
+        if (blogData.length !== 0) {
+            const response = blogData.find(post => post._id === postId);
+            setPost(response);
+            // Set editor state
+            const rawContentState = JSON.parse(response.content);
+            const contentState = convertFromRaw(rawContentState);
+            setEditorState(EditorState.createWithContent(contentState));
+            setTitle(response.title);
+            setId(response._id);
+            setDescription(response.description);
+            setLoading(false);
+            setIndex(blogData.indexOf(response));
+        }
+    }, [blogData, postId]);
+
+    // Init navigate
+    const navigate = useNavigate();
+
+    // Set page name
+    useEffect(() => {
+        document.title = "Blog Portal - Editor";
+    }, [])
+
+    // Return to last page
+    const goBack = () => {
+        navigate(-1);
+    }
 
     const [convertedContent, setConvertedContent] = useState();
 
@@ -53,13 +93,14 @@ const DraftEditor = () => {
             description: description,
             content: convertedContent,
         }
-        axios.post(`http://localhost:4000/blogs/`, data)
+        axios.put(`http://localhost:4000/blogs/${id}`, data)
             .then((result) => {
                 console.log(result.data);
-            }).catch((err) => {
+            })
+            .catch((err) => {
                 console.log(err);
             });
-    };
+        }
 
     // Load data (convert FROM raw)
     function loadData() {
@@ -84,8 +125,9 @@ const DraftEditor = () => {
                 <Row>
                     <Form>
                         <Label>Title</Label>
-                        <Input 
+                        <Input
                         name='title'
+                        defaultValue = {post.title}
                         onChange={(e) => setTitle(e.target.value)}
                         fluid>
                         </Input>
@@ -95,6 +137,7 @@ const DraftEditor = () => {
                         <Label>Description</Label>
                         <TextArea
                         name='description'
+                        defaultValue={post.description}
                         onChange={(e) => setDescription(e.target.value)}>
                         </TextArea>
                         <div style={{ textAlign: 'center', justifyContent: 'center', display: 'flex', minHeight: '60vh', marginTop: '20px' }}>
@@ -109,8 +152,9 @@ const DraftEditor = () => {
                     </Form>
                 </Row>
             </Container>
+
         </div>
     )
 }
 
-export default DraftEditor
+export default DraftUpdater
