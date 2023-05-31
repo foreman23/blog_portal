@@ -5,7 +5,7 @@ const BlogCard = (props) => {
         <a className='blogCard' href={`/viewpost/${props.keyID}`}>
             <div>
                 <Card style={{ width: '100%' }}>
-                    <Image src={props.image}></Image>
+                    <Image className='blogImage' src={props.image}></Image>
                     <Card.Content>
                         <Card.Meta>
                             <span className='cardDate'>{props.date}</span>

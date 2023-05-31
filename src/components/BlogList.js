@@ -9,10 +9,17 @@ export const BlogList = (props) => {
     // GET blogData from server
     const [blogData, setBlogData] = useState([]);
 
+    const API_KEY = process.env.REACT_APP_API_KEY;
+    const TLD = process.env.REACT_APP_TLD;
+
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:4000/blogs');
+                const response = await axios.get(`${TLD}blogs`, {
+                    headers: {
+                        'X-API-Key': API_KEY,
+                    },
+                });
                 setBlogData(response.data);
             } catch (error) {
                 console.log(error);
@@ -22,9 +29,24 @@ export const BlogList = (props) => {
     }, []);
 
     // DELETE a blog from server
-    function handleDelete(id) {
+    function handleDelete(id, img) {
         handleClose()
-        axios.delete(`http://localhost:4000/blogs/${id}`)
+        axios.delete(`${TLD}blogs/${id}`, {
+            headers: {
+                'X-API-Key': API_KEY,
+            },
+        })
+            // Delete the image from cloud
+            .then(res => {
+                console.log(res);
+                const prefix = img.substring(0, img.indexOf('.'));
+                return axios.delete(`${TLD}photos/${prefix}`, {
+                    headers: {
+                        'X-API-Key': API_KEY,
+                    },
+                })
+            })
+
             .then(response => {
                 console.log(response);
                 window.location.reload();
@@ -43,16 +65,19 @@ export const BlogList = (props) => {
     const [show, setShow] = useState(false);
     const [blogId, setBlogId] = useState(null);
     const [blogTitle, setBlogTitle] = useState(null);
+    const [blogImg, setBlogImg] = useState(null);
 
-    const handleShow = (id, title) => {
+    const handleShow = (id, title, img) => {
         setShow(true);
         setBlogId(id);
         setBlogTitle(title);
+        setBlogImg(img);
     };
 
     const handleClose = () => {
         setShow(false);
         setBlogId(null);
+        setBlogImg(null);
     };
 
     return (
@@ -76,7 +101,7 @@ export const BlogList = (props) => {
                             <Table.Cell>{blog.createdAt}</Table.Cell>
                             <Table.Cell>{blog._id}</Table.Cell>
                             <Table.Cell><Button href={`/updatepost/${blog._id}`}><Icon name='edit'></Icon></Button></Table.Cell>
-                            <Table.Cell><Button onClick={() => handleShow(blog._id, blog.title)}><Icon name='ban'></Icon></Button></Table.Cell>
+                            <Table.Cell><Button onClick={() => handleShow(blog._id, blog.title, blog.img)}><Icon name='ban'></Icon></Button></Table.Cell>
 
                             <Modal style={{ marginTop: '200px' }} animation={false} className='modal' show={show} onHide={handleClose}>
                                 <Modal.Header closeButton>
@@ -91,7 +116,7 @@ export const BlogList = (props) => {
                                     <Button onClick={handleClose}>
                                         Cancel
                                     </Button>
-                                    <Button color='red' onClick={() => handleDelete(blogId)}>
+                                    <Button color='red' onClick={() => handleDelete(blogId, blogImg)}>
                                         Delete
                                     </Button>
                                 </Modal.Footer>

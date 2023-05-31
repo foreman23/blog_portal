@@ -6,20 +6,27 @@ import { useNavigate } from 'react-router-dom';
 
 export const Header = () => {
 
+  const API_KEY = process.env.REACT_APP_API_KEY;
+  const TLD = process.env.REACT_APP_TLD;
+
   // Retrieve blogData from server
   const [blogData, setBlogData] = useState([]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('http://localhost:4000/blogs');
-                setBlogData(response.data);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        fetchData();
-    }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const response = await axios.get(`${TLD}blogs`, {
+                headers: {
+                    'X-API-Key': API_KEY,
+                },
+            });
+            setBlogData(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    fetchData();
+}, []);
 
   // Init navigate
   const navigate = useNavigate();

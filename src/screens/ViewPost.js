@@ -17,10 +17,18 @@ const ViewPost = () => {
     const [index, setIndex] = useState();
     const [loading, setLoading] = useState(true);
 
+    const API_KEY = process.env.REACT_APP_API_KEY;
+    const TLD = process.env.REACT_APP_TLD;
+    const CLOUD_NAME = process.env.REACT_APP_CLOUD_NAME;
+
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:4000/blogs`);
+                const response = await axios.get(`${TLD}blogs`, {
+                    headers: {
+                        'X-API-Key': API_KEY,
+                    },
+                });
                 setBlogData(response.data);
 
             } catch (error) {
@@ -86,10 +94,24 @@ const ViewPost = () => {
     // DELETE a blog from server
     function handleDelete() {
         handleClose()
-        axios.delete(`http://localhost:4000/blogs/${blogData[index]._id}`)
+        axios.delete(`${TLD}blogs/${blogData[index]._id}`, {
+            headers: {
+                'X-API-Key': API_KEY,
+            }
+        })
+            .then(res => {
+                console.log(res);
+                const prefix = (blogData[index].img).substring(0, (blogData[index].img).indexOf('.'));
+                return axios.delete(`${TLD}photos/${prefix}`, {
+                    headers: {
+                        'X-API-Key': API_KEY,
+                    },
+                })
+            })
+
             .then(response => {
                 console.log(response);
-                navigate(-1);
+                navigate('/');
             })
             .catch(error => {
                 console.log(error);
@@ -192,7 +214,7 @@ const ViewPost = () => {
                                 <Col><Header style={{ justifyContent: 'start', display: 'flex', marginBottom: '20px' }}>{post.createdAt}</Header></Col>
                             </Row>
                             <Row>
-                                <Col><Image fluid centered src={post.img}></Image></Col>
+                                <Col><Image fluid centered src={`https://res.cloudinary.com/${CLOUD_NAME}/image/upload/v1685425609/${post.img}`}></Image></Col>
                             </Row>
                             <Row>
                                 <Col>

@@ -147,3 +147,9 @@ code {
 .modal-backdrop {
   background-color: rgba(0, 0, 0, 0.2) !important;
 }
+
+.blogImage {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
