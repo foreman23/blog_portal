@@ -94,7 +94,7 @@ export const BlogList = (props) => {
                         <Table.HeaderCell>Remove</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
-                <Table.Body>
+                {/* <Table.Body>
                     {blogData.slice(0, renderAmount).map((blog) => (
                         <Table.Row key={blog._id}>
                             <Table.Cell><a className='blogListTitle' href={`/viewpost/${blog._id}`}>{blog.title}</a></Table.Cell>
@@ -124,7 +124,7 @@ export const BlogList = (props) => {
 
                         </Table.Row>
                     ))}
-                </Table.Body>
+                </Table.Body> */}
 
             </Table>
             {displayViewAll && (
