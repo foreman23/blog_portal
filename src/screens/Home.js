@@ -7,7 +7,7 @@ import BlogCard from "../components/BlogCard";
 
 const Home = () => {
 
-    const [blogData, setBlogData] = useState([]);
+    const [blogData, setBlogData] = useState(null);
     const [loading, setLoading] = useState(true);
 
     const API_KEY = process.env.REACT_APP_API_KEY;
@@ -46,7 +46,7 @@ const Home = () => {
                     <Col>
                         <h2 style={{ marginLeft: '10px' }}>Latest Posts</h2>
                         <div className='cardContainer'>
-                            {blogData.slice(0, 4).map((blog) => (
+                            {blogData !== null && blogData.slice(0, 4).map((blog) =>  (
                                 <BlogCard key={blog._id} image={`https://res.cloudinary.com/${CLOUD_NAME}/image/upload/v1685425609/${blog.img}`} keyID={blog._id} title={blog.title} date={blog.date} description={blog.description}></BlogCard>
                             ))}
                         </div>
