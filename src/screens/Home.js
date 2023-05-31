@@ -15,6 +15,7 @@ const Home = () => {
     const CLOUD_NAME = process.env.REACT_APP_CLOUD_NAME;
 
     useEffect(() => {
+        console.log('asjkldklsajdklsajdl')
         const fetchData = async () => {
             try {
                 const response = await axios.get(`${TLD}blogs`, {
@@ -22,9 +23,11 @@ const Home = () => {
                         'X-API-Key': API_KEY,
                     },
                 });
+                console.log(12314)
                 setBlogData(response.data);
                 setLoading(false);
             } catch (error) {
+                console.log(812392173)
                 console.log(error);
             }
         };
