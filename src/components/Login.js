@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import UserPool from "../UserPool";
+import { Form, Header, Image } from "semantic-ui-react";
+import { Container, Col, Row } from 'react-bootstrap';
 
 const Login = () => {
 
@@ -34,17 +36,22 @@ const Login = () => {
 
     };
 
-return (
-    <div>
-        <form onSubmit={onSubmit}>
-            <label>Username</label>
-            <input value={username} onChange={(event) => setUsername(event.target.value)}></input>
-            <label>Password</label>
-            <input value={password} onChange={(event) => setPassword(event.target.value)}></input>
-            <button type="submit">Login</button>
-        </form>
-    </div>
-)
+    return (
+        <div>
+            <Container>
+                <Row>
+                    <Form className="loginForm" onSubmit={onSubmit}>
+                    <Header>Blog Portal</Header>
+                        <label>Username</label>
+                        <input value={username} onChange={(event) => setUsername(event.target.value)}></input>
+                        <label>Password</label>
+                        <input type="password" value={password} onChange={(event) => setPassword(event.target.value)}></input>
+                        <Form.Button color="blue" style={{marginTop: '15px'}} type="submit">Login</Form.Button>
+                    </Form>
+                </Row>
+            </Container>
+        </div>
+    )
 }
 
 export default Login;

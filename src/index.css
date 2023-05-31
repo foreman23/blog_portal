@@ -153,3 +153,37 @@ code {
   height: 200px;
   object-fit: cover;
 }
+
+.loginForm {
+  width: 15vw !important;
+  margin-top: 10vw !important;
+  margin: auto;
+  justify-content: center;
+}
+
+@media (max-width: 1400px) {
+  .loginForm {
+    width: 40vw !important;
+    margin-top: 10vw !important;
+    margin: auto;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 1200px) {
+  .loginForm {
+    width: 50vw !important;
+    margin-top: 30vw !important;
+    margin: auto;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .loginForm {
+    width: 70vw !important;
+    margin-top: 30vw !important;
+    margin: auto;
+    justify-content: center;
+  }
+}
