@@ -34,11 +34,11 @@ const Home = () => {
                 <Row>
                     <Col>
                         <h2 style={{ marginLeft: '10px' }}>Latest Posts</h2>
-                        <div className='cardContainer'>
+                        {/* <div className='cardContainer'>
                             {blogData.slice(0, 4).map((blog) => (
                                 <BlogCard key={blog._id} image={`https://res.cloudinary.com/${CLOUD_NAME}/image/upload/v1685425609/${blog.img}`} keyID={blog._id} title={blog.title} date={blog.date} description={blog.description}></BlogCard>
                             ))}
-                        </div>
+                        </div> */}
                     </Col>
                     <Col>
                         <BlogList viewall={true} amount={8}></BlogList>
