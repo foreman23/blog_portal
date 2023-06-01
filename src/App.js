@@ -26,7 +26,7 @@ function App() {
     <Router>
       <div className="App">
 
-        {(localStorage.getItem('isLoggedIn')) === 'false' && <Login onLogin={handleLogin}></Login>}
+        {(!localStorage.getItem('isLoggedIn') || localStorage.getItem('isLoggedIn') === 'false') && <Login onLogin={handleLogin}></Login>}
 
         {(localStorage.getItem('isLoggedIn')) === 'true' && (
           <div>
