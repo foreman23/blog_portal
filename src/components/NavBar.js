@@ -12,6 +12,8 @@ const Header = ({ onLogout }) => {
                 <Navbar.Collapse id="navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link className='navButton' style={{fontFamily: 'Lato', fontSize: '14px', fontWeight: '500', marginRight: '40px', color: '#5E5E5E'}} href="/">HOME</Nav.Link>
+                        <Nav.Link className='navButton' style={{fontFamily: 'Lato', fontSize: '14px', fontWeight: '500', marginRight: '40px', color: '#5E5E5E'}} href="/blogs">Edit Blogs</Nav.Link>
+                        <Nav.Link className='navButton' style={{fontFamily: 'Lato', fontSize: '14px', fontWeight: '500', marginRight: '40px', color: '#5E5E5E'}} href="/gallery">Edit Gallery</Nav.Link>
                         <Nav.Link onClick={onLogout} className='navButton' style={{fontFamily: 'Lato', fontSize: '14px', fontWeight: '500', marginRight: '40px', color: '#5E5E5E'}}>LOGOUT</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>

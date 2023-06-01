@@ -183,7 +183,7 @@ code {
 @media (max-width: 1200px) {
   .loginForm {
     width: 50vw !important;
-    margin-top: 30vw !important;
+    margin-top: 40vw !important;
     margin: auto;
     justify-content: center;
   }
@@ -192,7 +192,7 @@ code {
 @media (max-width: 767px) {
   .loginForm {
     width: 70vw !important;
-    margin-top: 30vw !important;
+    margin-top: 50vw !important;
     margin: auto;
     justify-content: center;
   }
@@ -231,5 +231,76 @@ code {
   }
   100% {
     transform: translateX(0);
+  }
+}
+
+.mainButtons {
+  margin-top: 30px !important;
+  justify-content: center;
+  display: flex;
+  text-align: center;
+}
+
+.mainPhoto {
+  width: 50%;
+  height: 300px;
+  object-fit: cover;
+  margin: auto;
+}
+
+.mainPhoto:hover {
+  transform: scale(1.005);
+}
+
+.mainContainer {
+  margin-top: 9vw;
+}
+
+.mainBg {
+  background-color: #cccccc;
+  width: 25vw;
+  margin: auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 10px;
+}
+
+@media (max-width: 1200px) {
+  .mainBg {
+    background-color: #cccccc;
+    width: 75vw;
+    margin: auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+  }
+  .mainContainer {
+    margin-top: 30vw;
+  }
+}
+
+@media (max-width: 767px) {
+  .mainBg {
+    background-color: #cccccc;
+    width: 100vw;
+    margin: auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+  }
+  .mainContainer {
+    margin-top: 50vw;
+  }
+  .cardContainer {
+    margin: auto;
+    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(1, 100vw);
+  }
+  .order-mobile-last {
+    order: 2;
+  }
+  .order-mobile-first {
+    order: 1;
   }
 }

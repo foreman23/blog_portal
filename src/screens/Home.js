@@ -2,8 +2,9 @@ import { React, useState, useEffect } from 'react'
 import axios from 'axios';
 import { Container, Row, Col } from 'react-bootstrap';
 import { BlogList } from "../components/BlogList";
-import { Loader } from "semantic-ui-react";
+import { Loader, Button } from "semantic-ui-react";
 import BlogCard from "../components/BlogCard";
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
 
@@ -13,6 +14,14 @@ const Home = () => {
     const API_KEY = process.env.REACT_APP_API_KEY;
     const TLD = process.env.REACT_APP_TLD;
     const CLOUD_NAME = process.env.REACT_APP_CLOUD_NAME;
+
+    // Init navigate
+    const navigate = useNavigate();
+
+    // Return to last page
+    const goBack = () => {
+        navigate('/');
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -31,6 +40,7 @@ const Home = () => {
         fetchData();
     }, []);
 
+
     return (
         <div>
 
@@ -41,9 +51,15 @@ const Home = () => {
                 </div>
             ) : (
                 <div>
+                    <Container>
+                    <Row style={{display: 'flex', alignItems: 'start', justifyContent: 'start', textAlign: 'start', paddingBottom: '10px', paddingTop: '30px', marginBottom: '20px', marginLeft: '1px'}}>
+                        <Col><Button size='medium' style={{ backgroundColor: '#FFFFFF' }} onClick={goBack}>Back</Button></Col>
+                        <Col></Col>
+                    </Row>                   
+                    </Container>
                     <Container style={{ marginTop: '50px' }} className="homeContainerMain">
                         <Row>
-                            <Col>
+                            <Col className='order-mobile-last'>
                                 <h2 style={{ marginLeft: '10px' }}>Latest Posts</h2>
                                 <div className='cardContainer'>
                                     {blogData.slice(0, 4).map((blog) => (
@@ -51,7 +67,7 @@ const Home = () => {
                                     ))}
                                 </div>
                             </Col>
-                            <Col>
+                            <Col className='order-mobile-first'>
                                 <BlogList viewall={true} amount={8}></BlogList>
                             </Col>
                         </Row>

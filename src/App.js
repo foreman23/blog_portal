@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/NavBar';
 import { useEffect, useState } from 'react';
 import Home from './screens/Home';
+import Gallery from './screens/Gallery';
+import Main from './screens/Main';
 import NewPost from './screens/NewPost';
 import ViewPost from './screens/ViewPost';
 import AllPosts from './screens/AllPosts';
@@ -83,7 +85,9 @@ function App() {
           <div>
             <Navbar onLogout={handleLogout} />
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<Main />} />
+              <Route path='/blogs' element={<Home/>} />
+              <Route path='/gallery' element={<Gallery/>} />
               <Route path="/newpost" element={<NewPost />} />
               <Route path="/updatepost/:postId" element={<UpdatePost />} />
               <Route path="/viewpost/:postId" element={<ViewPost />} />
