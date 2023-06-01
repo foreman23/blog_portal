@@ -10,6 +10,7 @@ export const Header = () => {
   const TLD = process.env.REACT_APP_TLD;
 
   // Retrieve blogData from server
+  // DELETE THIS COMMENT
   const [blogData, setBlogData] = useState([]);
 
   useEffect(() => {
