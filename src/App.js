@@ -1,43 +1,94 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/NavBar';
-
+import { useEffect, useState } from 'react';
 import Home from './screens/Home';
 import NewPost from './screens/NewPost';
 import ViewPost from './screens/ViewPost';
 import AllPosts from './screens/AllPosts';
 import UpdatePost from './screens/UpdatePost';
 import Login from './components/Login';
+import { Account } from './components/Account';
+import Status from './components/Status';
+import UserPool from './UserPool';
 
 function App() {
+  const [status, setStatus] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const handleStatusChange = (newStatus) => {
+    if (status === true) {
+      console.log(newStatus);
+    }
+    setStatus(newStatus);
+    console.log(newStatus);
+  };
+
+  useEffect(() => {
+    const getSession = async () => {
+      try {
+        const session = await new Promise((resolve, reject) => {
+          const user = UserPool.getCurrentUser();
+          if (user) {
+            user.getSession((err, session) => {
+              if (err) {
+                reject();
+              } else {
+                resolve(session);
+              }
+            });
+          } else {
+            reject();
+          }
+        });
+        setStatus(true);
+      } catch (error) {
+        setStatus(false);
+      }
+      setIsLoaded(true); // Set isLoaded to true once the data is fetched
+    };
+
+    getSession();
+  }, []);
 
   // handle login
   const handleLogin = () => {
-    localStorage.setItem('isLoggedIn', true);
     window.location.replace('/');
-  }
+  };
+
+  const logout = () => {
+    const user = UserPool.getCurrentUser();
+    if (user) {
+      user.signOut();
+    }
+  };
 
   // handle logout
   const handleLogout = () => {
-    localStorage.setItem('isLoggedIn', false);
+    logout();
     window.location.replace('/');
-  }
+  };
 
   return (
     <Router>
       <div className="App">
-
-        {(!localStorage.getItem('isLoggedIn') || localStorage.getItem('isLoggedIn') === 'false') && <Login onLogin={handleLogin}></Login>}
-
-        {(localStorage.getItem('isLoggedIn')) === 'true' && (
+        <div>
+          {isLoaded && !status && (
+            <Account>
+              <Status onStatusChange={handleStatusChange} />
+              <Login />
+            </Account>
+          )}
+        </div>
+        {status && (
           <div>
-          <Navbar onLogout={handleLogout}></Navbar>
-          <Routes>
-            <Route path="/" element={<Home></Home>}></Route>
-            <Route path="/newpost" element={<NewPost></NewPost>}></Route>
-            <Route path="/updatepost/:postId" element={<UpdatePost></UpdatePost>}></Route>
-            <Route path="/viewpost/:postId" element={<ViewPost></ViewPost>}></Route>
-            <Route path="/allposts" element={<AllPosts></AllPosts>}></Route>
-          </Routes>
+            <Navbar onLogout={handleLogout} />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/newpost" element={<NewPost />} />
+              <Route path="/updatepost/:postId" element={<UpdatePost />} />
+              <Route path="/viewpost/:postId" element={<ViewPost />} />
+              <Route path="/allposts" element={<AllPosts />} />
+            </Routes>
           </div>
         )}
       </div>
