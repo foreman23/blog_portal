@@ -44,7 +44,7 @@ function App() {
       } catch (error) {
         setStatus(false);
       }
-      setIsLoaded(true); // Set isLoaded to true once the data is fetched
+      setIsLoaded(true);
     };
 
     getSession();
