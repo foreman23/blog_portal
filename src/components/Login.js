@@ -9,10 +9,26 @@ const Login = ({ onLogin }) => {
     const [password, setPassword] = useState("");
     const [badPassword, setBadPassword] = useState(false);
 
+    // Button load state
+    const [buttonLoad, setButtonLoad] = useState(false);
+
+    const loadOn = () => {
+        if (buttonLoad === false) {
+            setButtonLoad(true);
+        }
+    }
+
+    const loadOff = () => {
+        if (buttonLoad === true) {
+            setButtonLoad(false);
+        }
+    }
+
     const { authenticate } = useContext(AccountContext);
 
     const onSubmit = (event) => {
         event.preventDefault();
+        loadOn();
 
         authenticate(username, password)
             .then(data => {
@@ -21,6 +37,9 @@ const Login = ({ onLogin }) => {
             })
             .catch(err => {
                 console.error("login failed", err);
+                setBadPassword(true);
+                setButtonLoad(false);
+                shakeElement();
             })
 
     };
@@ -45,7 +64,7 @@ const Login = ({ onLogin }) => {
                         <input required value={username} onChange={(event) => setUsername(event.target.value)}></input>
                         <label>Password</label>
                         <input required type="password" value={password} onChange={(event) => setPassword(event.target.value)}></input>
-                        <Form.Button color="blue" style={{marginTop: '15px'}} type="submit">Login</Form.Button>
+                        <Form.Button loading={buttonLoad} color="blue" style={{marginTop: '15px'}} type="submit">Login</Form.Button>
                     </Form>
                 </Row>
                 <Row>
