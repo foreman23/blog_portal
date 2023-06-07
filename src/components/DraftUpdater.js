@@ -23,7 +23,7 @@ const DraftUpdater = () => {
     const cloud_key = process.env.REACT_APP_CLOUD_KEY;
     const cloud_secret = process.env.REACT_APP_CLOUD_SECRET;
 
-    // state variables for form input
+    // state variables for form inputs
     const [title, setTitle] = useState(null);
     const [description, setDescription] = useState(null);
     const [id, setId] = useState(null);
