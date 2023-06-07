@@ -10,12 +10,12 @@ const Main = () => {
                 <div className='mainBg'>
                 <div style={{ textAlign: 'center' }}>
                     <Header as={'h1'}>Welcome</Header>
-                    <Header as={'h3'}>Please select an option below</Header>
+                    <Header as={'h3'}>What would you like to edit?</Header>
                 </div>
                 <Row>
                     <div className='mainButtons'>
-                        <Button size='massive' icon href='/blogs'><Icon name='book'></Icon>Edit Blog</Button>
-                        <Button size='massive' icon href='/gallery'><Icon name='camera retro'></Icon>Edit Gallery</Button>
+                        <Col><Button size='massive' icon href='/blogs'><Icon name='book'></Icon>Blog</Button></Col>
+                        <Col><Button size='massive' icon href='/gallery'><Icon name='camera retro'></Icon>Gallery</Button></Col>
                     </div>
                 </Row>
                 </div>

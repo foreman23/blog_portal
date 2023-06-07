@@ -127,7 +127,7 @@ const DraftEditor = () => {
                         <Col><Button onClick={saveData} color='green'>Save</Button><Button onClick={loadData} color='blue'>Load</Button></Col>
                     </Row>
                 </Container>
-                <Container style={{ width: '40vw', justifyContent: 'center' }}>
+                <Container className='editorContainer'>
                     <Row>
                         <Form>
                             <Label>Title</Label>

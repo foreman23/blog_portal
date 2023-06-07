@@ -7,7 +7,7 @@ const Header = ({ onLogout }) => {
         <Navbar expand="lg" variant="lighter" bg="lighter">
             <Container>
                 <Navbar.Toggle aria-controls="navbar-nav">
-                    <Icon size='large' name='list'></Icon>
+                    <Icon size='large' name='bars'></Icon>
                 </Navbar.Toggle>
                 <Navbar.Collapse id="navbar-nav">
                     <Nav className="me-auto">

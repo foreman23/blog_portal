@@ -94,9 +94,10 @@ const CloudGallery = () => {
                 <div>
                     <Container>
                         <Row>
-                            <Header style={{ textAlign: 'center', marginTop: '20px', marginBottom: '20px' }}>Images hosted on cloudinary.com</Header>
+                            <Header style={{ textAlign: 'center', marginTop: '20px', marginBottom: '20px' }}>Hosted on cloudinary.com</Header>
+                            <p style={{ textAlign: 'center', marginTop: '20px', marginBottom: '20px' }}><b>Images must be under 10mb!</b> <br></br> I'd recommend using <a style={{textDecoration: 'none'}} target='_blank' href='https://tinypng.com/'>tinypng.com</a> and or converting to .webp format.</p>
                             <Col></Col>
-                            <Col><Button onClick={() => handleShow()} className='galleryUploadButton' icon color='green'><Icon name='add'></Icon> Upload</Button></Col>
+                            <Col><Button onClick={() => handleShow()} className='galleryUploadButton' icon color='blue'><Icon name='add'></Icon> Upload</Button></Col>
                         </Row>
                         <Row>
                             <Col>
