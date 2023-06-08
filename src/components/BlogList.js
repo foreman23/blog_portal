@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from 'react';
 import axios from 'axios';
-import { Table, Icon, Button } from 'semantic-ui-react';
+import { Table, Icon, Button, Image } from 'semantic-ui-react';
 import { Header } from "./Header"
 import { Modal } from 'react-bootstrap';
 
@@ -11,6 +11,7 @@ export const BlogList = (props) => {
 
     const API_KEY = process.env.REACT_APP_API_KEY;
     const TLD = process.env.REACT_APP_TLD;
+    const CLOUD_NAME = process.env.REACT_APP_CLOUD_NAME;
 
     useEffect(() => {
         const fetchData = async () => {
@@ -21,6 +22,7 @@ export const BlogList = (props) => {
                     },
                 });
                 response.data.sort((b, a) => new Date(a.createdAt) - new Date(b.createdAt));
+                console.log(response.data)
                 setBlogData(response.data);
             } catch (error) {
                 console.log(error);
@@ -99,7 +101,7 @@ export const BlogList = (props) => {
                     <Table.Row>
                         <Table.HeaderCell>Title</Table.HeaderCell>
                         <Table.HeaderCell>Date</Table.HeaderCell>
-                        <Table.HeaderCell>ID</Table.HeaderCell>
+                        <Table.HeaderCell>Thumbnail</Table.HeaderCell>
                         <Table.HeaderCell>Edit</Table.HeaderCell>
                         <Table.HeaderCell>Remove</Table.HeaderCell>
                     </Table.Row>
@@ -109,7 +111,8 @@ export const BlogList = (props) => {
                         <Table.Row key={blog._id}>
                             <Table.Cell><a className='blogListTitle' href={`/viewpost/${blog._id}`}>{blog.title}</a></Table.Cell>
                             <Table.Cell>{new Date(blog.createdAt).toLocaleString('en-US', options)}</Table.Cell>
-                            <Table.Cell>{blog._id}</Table.Cell>
+                            {/* <Table.Cell>{blog._id}</Table.Cell> */}
+                            <Table.Cell><Image className='blogTableThumbnail' src={`https://res.cloudinary.com/${CLOUD_NAME}/image/upload/v1685425609/${blog.img}`}></Image></Table.Cell>
                             <Table.Cell><Button href={`/updatepost/${blog._id}`}><Icon name='edit'></Icon></Button></Table.Cell>
                             <Table.Cell><Button onClick={() => handleShow(blog._id, blog.title, blog.img)}><Icon name='ban'></Icon></Button></Table.Cell>
 
