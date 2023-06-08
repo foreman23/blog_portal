@@ -89,7 +89,7 @@ const DraftEditor = () => {
                 },
             })
                 .then((result) => {
-                    navigate('/');
+                    navigate('/blogs');
                 }).catch((err) => {
                     console.log(err);
                 });

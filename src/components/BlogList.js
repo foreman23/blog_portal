@@ -20,6 +20,7 @@ export const BlogList = (props) => {
                         'X-API-Key': API_KEY,
                     },
                 });
+                response.data.sort((b, a) => new Date(a.createdAt) - new Date(b.createdAt));
                 setBlogData(response.data);
             } catch (error) {
                 console.log(error);
@@ -80,12 +81,21 @@ export const BlogList = (props) => {
         setBlogImg(null);
     };
 
+    // Date options
+    const options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        timeZone: 'UTC'
+      };
+
     return (
-        // PLACEHOLDER TABLE
         <div>
             <Header></Header>
-            <Table sortable striped>
-                <Table.Header>
+            <Table striped>
+                <Table.Header className='hideOnMobile'>
                     <Table.Row>
                         <Table.HeaderCell>Title</Table.HeaderCell>
                         <Table.HeaderCell>Date</Table.HeaderCell>
@@ -94,11 +104,11 @@ export const BlogList = (props) => {
                         <Table.HeaderCell>Remove</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
-                <Table.Body>
+                <Table.Body className='blogTable'>
                     {blogData.slice(0, renderAmount).map((blog) => (
                         <Table.Row key={blog._id}>
                             <Table.Cell><a className='blogListTitle' href={`/viewpost/${blog._id}`}>{blog.title}</a></Table.Cell>
-                            <Table.Cell>{blog.createdAt}</Table.Cell>
+                            <Table.Cell>{new Date(blog.createdAt).toLocaleString('en-US', options)}</Table.Cell>
                             <Table.Cell>{blog._id}</Table.Cell>
                             <Table.Cell><Button href={`/updatepost/${blog._id}`}><Icon name='edit'></Icon></Button></Table.Cell>
                             <Table.Cell><Button onClick={() => handleShow(blog._id, blog.title, blog.img)}><Icon name='ban'></Icon></Button></Table.Cell>
@@ -129,7 +139,7 @@ export const BlogList = (props) => {
             </Table>
             {displayViewAll && (
                 <span style={{ justifyContent: 'center', display: 'flex' }}>
-                    <Button style={{ backgroundColor: '#f2f2f2' }} href='/allposts'>View All</Button>
+                    <Button className='viewAllButtonBlogs' style={{ backgroundColor: '#f2f2f2' }} href='/allposts'>View All</Button>
                 </span>
             )}
 

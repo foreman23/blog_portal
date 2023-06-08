@@ -212,12 +212,44 @@ code {
   }
 }
 
+.gallerySortChange {
+  margin-left: 100px !important;
+  background-color: #cccccc;
+  color: black;
+  padding: 10px;
+  border-radius: 5px;
+  width: 125px;
+}
+
+.viewAllButtonBlogs {
+  background-color: '#f2f2f2';
+}
+
 @media (max-width: 767px) {
   .loginForm {
     width: 70vw !important;
     margin-top: 50vw !important;
     margin: auto;
     justify-content: center;
+  }
+  .gallerySortChange {
+    margin-left: 0px !important;
+    background-color: #cccccc;
+    color: black;
+    padding: 10px;
+    border-radius: 5px;
+    width: 75px;
+    text-align: center;
+  }
+  .viewAllButtonBlogs {
+    margin-top: 10px !important;
+    margin-bottom: 25px !important;
+  }
+  .hideOnMobile {
+    display: none !important;
+  }
+  .blogTable {
+    text-align: center;
   }
 }
 
@@ -294,6 +326,10 @@ code {
   justify-content: center;
 }
 
+.hideOnDesktop {
+  display: none !important;
+}
+
 @media (max-width: 1200px) {
   .mainBg {
     background-color: #cccccc;
@@ -358,4 +394,8 @@ code {
     width: 100vw !important;
     justify-content: center;
   }
+}
+
+.sortAnchor:hover {
+  cursor: pointer;
 }

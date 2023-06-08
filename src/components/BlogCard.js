@@ -1,6 +1,17 @@
 import { Card, Image } from 'semantic-ui-react'
 
 const BlogCard = (props) => {
+    
+    // Date options
+    const options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        timeZone: 'UTC'
+      };
+
     return (
         <a className='blogCard' href={`/viewpost/${props.keyID}`}>
             <div>
@@ -8,7 +19,7 @@ const BlogCard = (props) => {
                     <Image className='blogImage' src={props.image}></Image>
                     <Card.Content>
                         <Card.Meta>
-                            <span className='cardDate'>{props.date}</span>
+                            <span className='cardDate'>{new Date(props.date).toLocaleString('en-US', options)}</span>
                         </Card.Meta>
                         <Card.Header>{props.title}</Card.Header>
                         <Card.Description>

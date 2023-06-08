@@ -16,6 +16,7 @@ const ViewPost = () => {
     const [post, setPost] = useState([]);
     const [index, setIndex] = useState();
     const [loading, setLoading] = useState(true);
+    const [showText, setShowText] = useState(false);
 
     const API_KEY = process.env.REACT_APP_API_KEY;
     const TLD = process.env.REACT_APP_TLD;
@@ -134,22 +135,36 @@ const ViewPost = () => {
         setBlogId(null);
     };
 
+    useEffect(() => {
+        // Simulating loading delay
+        setTimeout(() => {
+            setShowText(true);
+        }, 5000);
+    }, []);
+
+    // Date options
+    const options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        timeZone: 'UTC'
+    };
+
     return (
         <div>
             {loading ? (
                 <div>
                     <Loader active>
+                        {showText && <p>API marked as inactive<br></br>May take a few extra seconds to load..</p>}
                     </Loader>
                 </div>
-
 
             ) : (
                 <Container fluid>
                     <Row style={{ display: 'flex', backgroundColor: '#D9D9D9', alignItems: 'center', justifyContent: 'center', textAlign: 'center', paddingBottom: '10px', paddingTop: '10px', marginBottom: '20px' }}>
                         <Col>
-                            {/* <Button href='/' size='medium' style={{ backgroundColor: '#FFFFFF' }}>
-                                <Icon style={{ margin: 'auto' }} name='home'></Icon>
-                            </Button> */}
                             <Button size='medium' style={{ backgroundColor: '#FFFFFF' }} onClick={goBack}>Back</Button>
                         </Col>
                         <Col>
@@ -211,7 +226,7 @@ const ViewPost = () => {
                                 <Col><Header as={'h1'} style={{ justifyContent: 'start', display: 'flex', textAlign: 'start', marginBottom: '20px' }}>{post.title}</Header></Col>
                             </Row>
                             <Row>
-                                <Col><Header style={{ justifyContent: 'start', display: 'flex', marginBottom: '20px' }}>{post.createdAt}</Header></Col>
+                                <Col><Header style={{ justifyContent: 'start', display: 'flex', marginBottom: '20px' }}>{new Date(post.createdAt).toLocaleString('en-US', options)}</Header></Col>
                             </Row>
                             <Row>
                                 <Col><Image fluid centered src={`https://res.cloudinary.com/${CLOUD_NAME}/image/upload/v1685425609/${post.img}`}></Image></Col>

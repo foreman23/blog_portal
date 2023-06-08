@@ -40,6 +40,16 @@ const CloudCard = (props) => {
       });
   }
 
+  // Date options
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    timeZone: 'UTC'
+  };
+
 
   return (
     <a className='cloudCard'>
@@ -48,7 +58,7 @@ const CloudCard = (props) => {
           <Image className='cloudImage' src={props.image}></Image>
           <Card.Content>
             <Card.Meta>
-              <span className='cardDate'>{props.date}</span>
+              <span className='cardDate'>{new Date(props.date).toLocaleString('en-US', options)}</span>
             </Card.Meta>
             <Card.Description>
               <Button onClick={() => handleShow()} icon><Icon color='red' name='trash'></Icon></Button>
