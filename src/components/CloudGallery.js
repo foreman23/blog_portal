@@ -92,6 +92,7 @@ const CloudGallery = () => {
                 });
                 // Sort gallery in descending order
                 response.data.sort((b, a) => new Date(a.created_at) - new Date(b.created_at));
+                console.log(response.data)
                 setPhotos(response.data);
                 setLoading(false);
             } catch (error) {
@@ -119,11 +120,14 @@ const CloudGallery = () => {
                 </div>
             ) : (
                 <div>
+                    <Header as={'h2'} style={{ textAlign: 'center', marginTop: '10px', marginBottom: '20px' }}>Edit Photo Gallery</Header>
+                    <div className='textBoxGallery'>
+                        <p style={{ textAlign: 'justify', marginTop: '20px', marginBottom: '35px' }}><b><u>*Images must be under 10mb!</u></b>
+                            <br></br> It's recommend to use <a style={{ textDecoration: 'none' }} target='_blank' href='https://tinypng.com/'>tinypng.com</a> and/or convert images to the .webp format before upload.
+                            <br></br> To ensure quick loading, images should be optimized to balance between size and quality, aiming for the smallest file size without compromising visual clarity.</p>
+                    </div>
                     <Container>
                         <Row>
-                            <Header as={'h2'} style={{ textAlign: 'center', marginTop: '10px', marginBottom: '20px' }}>Edit Photo Gallery</Header>
-                            <p style={{ textAlign: 'center', marginTop: '20px', marginBottom: '35px' }}><b><u>*Images must be under 10mb!</u></b>
-                                <br></br> I'd recommend using <a style={{ textDecoration: 'none' }} target='_blank' href='https://tinypng.com/'>tinypng.com</a> and or converting to .webp format before upload.</p>
                             <Col>
                                 <div className='gallerySortChange'>
                                     <a className='sortAnchor' style={{ textDecoration: 'none', color: 'black' }} onClick={() => changeSort()}><span className='hideOnMobile'>Date created</span>
@@ -137,7 +141,7 @@ const CloudGallery = () => {
                             <Col>
                                 <div className='galleryContainer'>
                                     {photos.map((photo) => (
-                                        <CloudCard public_id={photo.public_id} format={photo.format} image={photo.secure_url} date={photo.created_at}></CloudCard>
+                                        <CloudCard public_id={photo.public_id} width={photo.width} height={photo.height} bytes={photo.bytes} format={photo.format} image={photo.secure_url} date={photo.created_at}></CloudCard>
                                     ))}
                                 </div>
                             </Col>

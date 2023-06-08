@@ -41,11 +41,6 @@ const DraftEditor = () => {
         () => EditorState.createEmpty(),
     );
 
-    // useEffect for image selection (DELETE THIS LATER)
-    useEffect(() => {
-        console.log(imageSelected);
-    }, [imageSelected]);
-
     const [convertedContent, setConvertedContent] = useState();
 
     // Handle thumbnail upload
@@ -74,7 +69,6 @@ const DraftEditor = () => {
             // First upload image to cloudinary
             const response = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, formData);
             const img = `${response.data.public_id}.${response.data.format}`;
-            console.log(img)
             setImg(img);
             const data = {
                 title: title,

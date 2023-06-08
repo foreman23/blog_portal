@@ -22,7 +22,6 @@ export const BlogList = (props) => {
                     },
                 });
                 response.data.sort((b, a) => new Date(a.createdAt) - new Date(b.createdAt));
-                console.log(response.data)
                 setBlogData(response.data);
             } catch (error) {
                 console.log(error);
@@ -41,7 +40,6 @@ export const BlogList = (props) => {
         })
             // Delete the image from cloud
             .then(res => {
-                console.log(res);
                 const prefix = img.substring(0, img.indexOf('.'));
                 return axios.delete(`${TLD}photos/${prefix}`, {
                     headers: {
@@ -111,10 +109,9 @@ export const BlogList = (props) => {
                         <Table.Row key={blog._id}>
                             <Table.Cell><a className='blogListTitle' href={`/viewpost/${blog._id}`}>{blog.title}</a></Table.Cell>
                             <Table.Cell>{new Date(blog.createdAt).toLocaleString('en-US', options)}</Table.Cell>
-                            {/* <Table.Cell>{blog._id}</Table.Cell> */}
                             <Table.Cell><Image className='blogTableThumbnail' src={`https://res.cloudinary.com/${CLOUD_NAME}/image/upload/v1685425609/${blog.img}`}></Image></Table.Cell>
-                            <Table.Cell><Button href={`/updatepost/${blog._id}`}><Icon name='edit'></Icon></Button></Table.Cell>
-                            <Table.Cell><Button onClick={() => handleShow(blog._id, blog.title, blog.img)}><Icon name='ban'></Icon></Button></Table.Cell>
+                            <Table.Cell><Button icon href={`/updatepost/${blog._id}`}><Icon color='grey' name='edit'></Icon></Button></Table.Cell>
+                            <Table.Cell><Button icon onClick={() => handleShow(blog._id, blog.title, blog.img)}><Icon color='red' name='ban'></Icon></Button></Table.Cell>
 
                             <Modal style={{ marginTop: '200px' }} animation={false} className='modal' show={show} onHide={handleClose}>
                                 <Modal.Header closeButton>

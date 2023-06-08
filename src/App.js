@@ -12,6 +12,7 @@ import Login from './components/Login';
 import { Account } from './components/Account';
 import Status from './components/Status';
 import UserPool from './UserPool';
+import ViewImage from './screens/ViewImage';
 
 function App() {
   const [status, setStatus] = useState(false);
@@ -91,6 +92,7 @@ function App() {
               <Route path="/newpost" element={<NewPost />} />
               <Route path="/updatepost/:postId" element={<UpdatePost />} />
               <Route path="/viewpost/:postId" element={<ViewPost />} />
+              <Route path="/viewimage/plane_gallery/:imageId" element={<ViewImage />} />
               <Route path="/allposts" element={<AllPosts />} />
             </Routes>
           </div>

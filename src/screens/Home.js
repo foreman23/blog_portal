@@ -68,7 +68,7 @@ const Home = () => {
             ) : (
                 <div>
                     <Container>
-                    <Row style={{display: 'flex', alignItems: 'start', justifyContent: 'start', textAlign: 'start', paddingTop: '30px', marginBottom: '5px', marginLeft: '1px'}}>
+                    <Row style={{display: 'flex', alignItems: 'start', justifyContent: 'start', textAlign: 'start', paddingTop: '30px', marginBottom: '-15px', marginLeft: '1px'}}>
                         <Col><Button size='medium' style={{ backgroundColor: '#FFFFFF' }} onClick={goBack}>Back</Button></Col>
                         <Col></Col>
                     </Row>                   
@@ -76,8 +76,8 @@ const Home = () => {
                     <Container style={{ marginTop: '50px' }} className="homeContainerMain">
                         <Row>
                         <Header as={'h2'} style={{ textAlign: 'center', marginTop: '0px', marginBottom: '60px' }}>Edit Blogs</Header>
-                            <Col className='order-mobile-last'>
-                                <h2 style={{ marginLeft: '10px' }}>Latest Posts</h2>
+                            <Col className='order-mobile-last hideOnMobile'>
+                                <h2 className='latestPostsHeader' style={{ marginLeft: '10px' }}>Latest Posts</h2>
                                 <div className='cardContainer'>
                                     {blogData.slice(0, 4).map((blog) => (
                                         <BlogCard key={blog._id} image={`https://res.cloudinary.com/${CLOUD_NAME}/image/upload/v1685425609/${blog.img}`} keyID={blog._id} title={blog.title} date={blog.createdAt} description={blog.description}></BlogCard>

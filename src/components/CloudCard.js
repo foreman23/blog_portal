@@ -1,7 +1,7 @@
 import { Card, Image, Button, Icon } from 'semantic-ui-react';
 import axios from 'axios';
 import { Modal } from 'react-bootstrap';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const CloudCard = (props) => {
 
@@ -51,12 +51,30 @@ const CloudCard = (props) => {
   };
 
 
+  const [fileSize, setFileSize] = useState(null);
+
+  // Convert bytes to mb or kb
+  useEffect(() => {
+    if ((props.bytes) >= 1048576) { // If size is greater than or equal to 1MB
+      const sizeInMB = ((props.bytes) / (1024 * 1024)).toFixed(2);
+      setFileSize(sizeInMB + ' MB');
+    } else {
+      const sizeInKB = ((props.bytes) / 1024).toFixed(2);
+      setFileSize(sizeInKB + ' KB');
+    }
+  }, [props.bytes]);
+
   return (
-    <a className='cloudCard'>
+    <div className='cloudCard'>
       <div>
         <Card style={{ width: '100%' }}>
-          <Image className='cloudImage' src={props.image}></Image>
+          <a href={`/viewimage/${props.public_id}`}><Image className='cloudImage' src={props.image}></Image></a>
           <Card.Content>
+            <span style={{ color: 'grey' }}><b>Dimensions:</b> {props.width} x {props.height}</span>
+            <br></br>
+            <span style={{ color: 'grey' }}><b>Size:</b> {fileSize}</span>
+            <br></br>
+            <span style={{ color: 'grey' }}><b>Format:</b> {props.format}</span>
             <Card.Meta>
               <span className='cardDate'>{new Date(props.date).toLocaleString('en-US', options)}</span>
             </Card.Meta>
@@ -83,7 +101,7 @@ const CloudCard = (props) => {
           </Modal.Footer>
         </Modal>
       </div>
-    </a>
+    </div>
   )
 }
 

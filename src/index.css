@@ -370,6 +370,19 @@ code {
     width: 100vw !important;
     justify-content: center;
   }
+  .cardContainer {
+    justify-content: center;
+    margin-bottom: 25px;
+  }
+  .latestPostsHeader {
+    margin-left: 85px !important;
+  }
+}
+
+.textBoxGallery {
+  width: 45%;
+  display: flex;
+  margin: auto;
 }
 
 @media (max-width: 767px) {
@@ -411,6 +424,12 @@ code {
   }
   .hideOnDesktop {
     display: flex !important;
+  }
+  .textBoxGallery {
+    width: 95%;
+    display: flex;
+    margin: auto;
+    margin-bottom: 5px;
   }
 }
 

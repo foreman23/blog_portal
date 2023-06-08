@@ -91,11 +91,6 @@ const DraftUpdater = () => {
 
     const [convertedContent, setConvertedContent] = useState();
 
-    // useEffect for image selection (DELETE THIS LATER)
-    useEffect(() => {
-        console.log(imageSelected);
-    }, [imageSelected]);
-
 
     // Handle thumbnail upload
     const handleFileInputChange = (event) => {
@@ -123,7 +118,6 @@ const DraftUpdater = () => {
             // First upload replacement image to cloudinary
             const response = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, formData);
             const img = `${response.data.public_id}.${response.data.format}`;
-            console.log(img);
             setImg(img);
             const data = {
                 title: title,
