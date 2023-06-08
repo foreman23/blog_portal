@@ -382,7 +382,7 @@ code {
     border-radius: 10px;
   }
   .mainContainer {
-    margin-top: 50vw;
+    margin-top: 40vw;
   }
   .cardContainer {
     margin: auto;
@@ -408,6 +408,9 @@ code {
   .editorContainer {
     width: 100vw !important;
     justify-content: center;
+  }
+  .hideOnDesktop {
+    display: flex !important;
   }
 }
 

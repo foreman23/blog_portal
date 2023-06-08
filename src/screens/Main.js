@@ -8,16 +8,14 @@ const Main = () => {
         <div>
             <Container className='mainContainer'>
                 <div className='mainBg'>
-                <div style={{ textAlign: 'center' }}>
-                    <Header as={'h1'}>Welcome</Header>
-                    <Header as={'h3'}>What would you like to edit?</Header>
-                </div>
-                <Row>
-                    <div className='mainButtons'>
-                        <Col><Button size='massive' icon href='/blogs'><Icon name='book'></Icon>Blog</Button></Col>
-                        <Col><Button size='massive' icon href='/gallery'><Icon name='camera retro'></Icon>Gallery</Button></Col>
+                    <div style={{ textAlign: 'center' }}>
+                        <Header as={'h1'}>Welcome</Header>
+                        <Header as={'h3'}>What would you like to edit?</Header>
                     </div>
-                </Row>
+                    <div style={{ textAlign: 'center', marginTop: '15px' }}>
+                        <Button size='massive' color='blue' icon href='/blogs'><Icon style={{ color: '#b5e0f7' }} name='book'></Icon> Blog</Button>
+                        <Button size='massive' color='blue' icon href='/gallery'><Icon style={{ color: '#b5e0f7' }} name='camera'></Icon> Gallery</Button>
+                    </div>
                 </div>
             </Container>
         </div>
