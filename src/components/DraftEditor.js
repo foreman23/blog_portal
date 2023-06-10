@@ -66,7 +66,7 @@ const DraftEditor = () => {
         formData.append("upload_preset", "uoxzss2b");
 
         try {
-            // First upload image to cloudinary
+            // First upload image to cloud
             const response = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, formData);
             const img = `${response.data.public_id}.${response.data.format}`;
             setImg(img);
