@@ -32,6 +32,7 @@ const DraftUpdater = () => {
     const [img, setImg] = useState(null);
 
     const [oldImageId, setOldImageId] = useState(null);
+    const [oldImage, setOldImage] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -72,7 +73,8 @@ const DraftUpdater = () => {
             setPreviewUrl(`https://res.cloudinary.com/${CLOUD_NAME}/image/upload/v1685425609/${response.img}`)
             // Below is for deleting old cloud photo
             const prefix = (response.img).substring(0, (response.img).indexOf('.'));
-            setOldImageId(prefix)
+            setOldImageId(prefix);
+            setOldImage(response.img);
         }
     }, [blogData, postId]);
 
@@ -113,24 +115,34 @@ const DraftUpdater = () => {
         const formData = new FormData();
         formData.append("file", imageSelected);
         formData.append("upload_preset", "uoxzss2b");
+        console.log(imageSelected)
 
         try {
             // First upload replacement image to cloudinary
-            const response = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, formData);
-            const img = `${response.data.public_id}.${response.data.format}`;
-            setImg(img);
-            const data = {
+            let data = {
                 title: title,
                 description: description,
                 content: convertedContent,
-                img: img,
+                img: oldImage,
             }
-            // Then DELETE old image from cloudinary
-            const res = await axios.delete(`${TLD}photos/${oldImageId}`, {
-                headers: {
-                    'X-API-Key': API_KEY,
-                },
-            });
+
+            if (imageSelected !== null) {
+                const response = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, formData);
+                const img = `${response.data.public_id}.${response.data.format}`;
+                setImg(img);
+                data = {
+                    title: title,
+                    description: description,
+                    content: convertedContent,
+                    img: img,
+                }
+                // Then DELETE old image from cloudinary
+                const res = await axios.delete(`${TLD}photos/${oldImageId}`, {
+                    headers: {
+                        'X-API-Key': API_KEY,
+                    },
+                });
+            }
 
             // Next update form data
             axios.put(`${TLD}blogs/${id}`, data, {
@@ -139,8 +151,8 @@ const DraftUpdater = () => {
                 },
             })
                 .then((result) => {
-                    console.log(result.data);
                     setLoading(false);
+                    navigate('/blogs');
                 })
                 .catch((err) => {
                     console.log(err);
