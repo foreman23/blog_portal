@@ -115,7 +115,6 @@ const DraftUpdater = () => {
         const formData = new FormData();
         formData.append("file", imageSelected);
         formData.append("upload_preset", "uoxzss2b");
-        console.log(imageSelected)
 
         try {
             // First upload replacement image to cloudinary
